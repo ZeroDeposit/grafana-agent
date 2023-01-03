@@ -2,42 +2,27 @@
 
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
-ENV_DIR=${3:-}
 
-export_env_dir() {
-  env_dir=$1
-  acceptlist_regex=${2:-''}
-  denylist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
-  if [ -d "$env_dir" ]; then
-    for e in $(ls $env_dir); do
-      echo "$e" | grep -E "$acceptlist_regex" | grep -qvE "$denylist_regex" &&
-      export "$e=$(cat $env_dir/$e)"
-      :
-    done
-  fi
-}
 
-echo "Download grafana agent binary..."
-mkdir -p $BUILD_DIR/bin
-curl -O -L --silent "https://github.com/grafana/agent/releases/download/v0.30.1/agent-linux-amd64.zip"
-unzip agent-linux-amd64.zip 
-mv agent-linux-amd64 $BUILD_DIR/bin/grafana-agent
-rm agent-linux-amd64.zip
+if [[ -f $CACHE_DIR/bin/grafana-agent ]]; then
+  echo "-----> Reusing cached agent"
+  cp -f "$CACHE_DIR/bin/grafana-agent" "$BUILD_DIR/bin/grafana-agent"
+else
+  echo "-----> Download grafana agent binary..."
+  mkdir -p $BUILD_DIR/bin
+  curl -O -L --silent "https://github.com/grafana/agent/releases/download/v0.30.1/agent-linux-amd64.zip"
+  unzip agent-linux-amd64.zip 
+  mv agent-linux-amd64 $BUILD_DIR/bin/grafana-agent
+  rm agent-linux-amd64.zip
+  cp -f "$BUILD_DIR/bin/grafana-agent" "$CACHE_DIR//bin/grafana-agent"
 
-echo "Grafana agent binary installed."
+  echo "-----> Grafana agent binary installed."
+  
+fi
 
-# if ! [ -x "$(command -v envsubst)" ]; then
-#   echo "-----> Installing dependencies"
-#   apt install -y gettext
-# fi
 
-export_env_dir "$ENV_DIR"
-
-# echo "-----> Substituting environment variables"
-# envsubst < $BUILD_DIR/config.yml > $BUILD_DIR/agent.yml
-
-echo "-----> Copying configuration file"
-cp $BUILD_DIR/config/grafana-agent.yml 
+echo "-----> Substituting envrionment variables."
+envsubst < $BUILD_DIR/config/grafana-agent.yml > $BUILD_DIR//config/grafana-agent.yml
 
 # Debugging
 cat $BUILD_DIR/config/grafana-agent.yml
