@@ -1,0 +1,13 @@
+#!/bin/sh
+
+BUILD_DIR=$1
+CONFIG_FILE_PATH=config/grafana-agent.yml
+
+
+if [ -f $BUILD_DIR/$CONFIG_FILE_PATH ]; then
+  echo "Agent config detected."
+else
+  echo "Missing agent config."
+  echo $CONFIG_FILE_PATH
+  exit 1
+fi
