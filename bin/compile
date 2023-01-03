@@ -14,7 +14,7 @@ else
   unzip agent-linux-amd64.zip 
   mv agent-linux-amd64 $BUILD_DIR/bin/grafana-agent
   rm agent-linux-amd64.zip
-  cp -f "$BUILD_DIR/bin/grafana-agent" "$CACHE_DIR//bin/grafana-agent"
+  cp -f "$BUILD_DIR/bin/grafana-agent" "$CACHE_DIR/bin/grafana-agent"
 
   echo "-----> Grafana agent binary installed."
   
