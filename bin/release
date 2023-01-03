@@ -1,9 +1,8 @@
 #!/bin/sh
 
-BUILD_DIR=$1
 
 cat << EOF
 ---
 default_process_types:
-  web: bin/grafana-agent -config.file config/grafana-agent.yml > /tmp/test
+  web: bin/grafana-agent -config.file config/grafana-agent.yml -server.http.address=0.0.0.0:55555
 EOF
