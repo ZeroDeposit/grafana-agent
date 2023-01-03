@@ -5,5 +5,5 @@ BUILD_DIR=$1
 cat << EOF
 ---
 default_process_types:
-  web: bin/grafana-agent -config.file grafana-agent.yml
+  web: bin/grafana-agent -config.file config/grafana-agent.yml > /tmp/test
 EOF
