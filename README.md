@@ -11,7 +11,7 @@ It downloads the binary that will placed in `bin/grafana-agent`
 TODO: Cache the download part with the help CACHE_DIR
 
 ### Config
-Your config file should be placed into the root as `config/grafana-agent.yml`.
+Your config file should be placed into the root as `config/grafana-agent-template.yml`.
 
 The buildpack will substitute any environment variables. Example:
 
