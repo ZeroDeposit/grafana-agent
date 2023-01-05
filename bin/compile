@@ -30,7 +30,7 @@ echo "Grafana agent binary installed."
 export_env_dir "$ENV_DIR"
 
 echo "-----> Substituting environment variables and copying the file to it's final destination"
-envsubst < $BUILD_DIR/config/grafana-agent.yml > $BUILD_DIR/grafana-agent.yml
+envsubst < $BUILD_DIR/config/grafana-agent.yml > $BUILD_DIR/config/agent.yml
 
 # Debugging
-cat $BUILD_DIR/grafana-agent.yml
+cat $BUILD_DIR/config/agent.yml
