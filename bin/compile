@@ -26,18 +26,11 @@ rm agent-linux-amd64.zip
 
 echo "Grafana agent binary installed."
 
-# if ! [ -x "$(command -v envsubst)" ]; then
-#   echo "-----> Installing dependencies"
-#   apt install -y gettext
-# fi
 
 export_env_dir "$ENV_DIR"
 
-# echo "-----> Substituting environment variables"
-# envsubst < $BUILD_DIR/config.yml > $BUILD_DIR/agent.yml
-
-echo "-----> Copying configuration file"
-cp $BUILD_DIR/config/grafana-agent.yml $BUILD_DIR/grafana-agent.yml
+echo "-----> Substituting environment variables and copying the file to it's final destination"
+envsubst < $BUILD_DIR/config/grafana-agent.yml > $BUILD_DIR/grafana-agent.yml
 
 # Debugging
 cat $BUILD_DIR/grafana-agent.yml
