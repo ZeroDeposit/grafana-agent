@@ -1,9 +1,0 @@
-#!/bin/sh
-
-BUILD_DIR=$1
-
-cat << EOF
----
-default_process_types:
-  web: bin/grafana-agent -config.file grafana-agent.yml
-EOF
