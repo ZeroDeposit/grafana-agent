@@ -33,4 +33,4 @@ echo "-----> Substituting environment variables and copying the file to it's fin
 envsubst < $BUILD_DIR/config/grafana-agent-template.yml > $BUILD_DIR/config/grafana-agent.yml
 
 # Debugging
-cat $BUILD_DIR/config/agent.yml
+cat $BUILD_DIR/config/grafana-agent.yml
