@@ -43,6 +43,4 @@ prometheus:
     scrape_interval: 60s
   wal_directory: /tmp/grafana-agent-wal
 
-server:
-  http_listen_port: 12345
 ```
