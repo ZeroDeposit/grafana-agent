@@ -19,18 +19,23 @@ export_env_dir() {
 
 echo "Download grafana agent binary..."
 mkdir -p $BUILD_DIR/bin
-curl -O -L --silent "https://github.com/grafana/agent/releases/download/v0.30.1/agent-linux-amd64.zip"
-unzip agent-linux-amd64.zip 
-mv agent-linux-amd64 $BUILD_DIR/bin/grafana-agent
-rm agent-linux-amd64.zip
+curl -O -L --silent "https://github.com/grafana/agent/releases/download/v0.38.1/grafana-agent-linux-amd64.zip"
+unzip grafana-agent-linux-amd64.zip 
+mv grafana-agent-linux-amd64 $BUILD_DIR/bin/grafana-agent
+rm grafana-agent-linux-amd64.zip
 
 echo "Grafana agent binary installed."
 
+echo "Download node exporter..."
+wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
+tar xvfz node_exporter-*.*-amd64.tar.gz
+mv node_exporter-*.*-amd64 bin/node_exporter
+rm node_exporter-*.*-amd64.tar.gz
+
+echo "Node exporter installed."
+
 
 export_env_dir "$ENV_DIR"
-
-echo "-----> Substituting environment variables and copying the file to it's final destination"
-envsubst < $BUILD_DIR/config/grafana-agent-template.yml > $BUILD_DIR/config/grafana-agent.yml
 
 # Debugging
 cat $BUILD_DIR/config/grafana-agent.yml
