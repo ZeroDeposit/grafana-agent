@@ -37,5 +37,3 @@ echo "Node exporter installed."
 
 export_env_dir "$ENV_DIR"
 
-# Debugging
-cat $BUILD_DIR/config/grafana-agent.yml
