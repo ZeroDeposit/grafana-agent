@@ -11,7 +11,7 @@ mkdir -p "$BUILD_DIR/bin"
 # Download and unzip Alloy
 curl -sSL -o alloy.zip "https://github.com/grafana/alloy/releases/download/v1.11.3/alloy-linux-amd64.zip"
 unzip -q alloy.zip
-mv alloy-linux-amd64/alloy "$BUILD_DIR/bin/alloy"
+mv alloy-linux-amd64 "$BUILD_DIR/bin/alloy"
 chmod +x "$BUILD_DIR/bin/alloy"
 rm -rf alloy-linux-amd64 alloy.zip
 
