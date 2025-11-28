@@ -6,7 +6,7 @@ ENV_DIR=${3:-}
 
 echo "-----> Installing Grafana Alloy (v1.11.3)"
 
-mkdir -p "$BUILD_DIR/bin"
+mkdir -p $BUILD_DIR/bin
 
 # Download and unzip Alloy
 curl -sSL -o alloy.zip "https://github.com/grafana/alloy/releases/download/v1.11.3/alloy-linux-amd64.zip"
