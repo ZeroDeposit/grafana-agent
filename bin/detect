@@ -1,13 +1,12 @@
 #!/bin/sh
 
 BUILD_DIR=$1
-CONFIG_FILE_PATH=config/grafana-agent-template.yml
+CONFIG_FILE_PATH=config/config.alloy
 
-
-if [ -f $BUILD_DIR/$CONFIG_FILE_PATH ]; then
-  echo "Agent config detected."
+if [ -f "$BUILD_DIR/$CONFIG_FILE_PATH" ]; then
+  echo "Alloy config detected."
+  exit 0
 else
-  echo "Missing agent config."
-  echo $CONFIG_FILE_PATH
+  echo "Missing Alloy config ($CONFIG_FILE_PATH)."
   exit 1
 fi
