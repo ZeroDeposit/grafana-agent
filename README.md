@@ -1,46 +1,37 @@
 # Heroku Buildpack for Grafana Cloud Agent
 
-This is an unofficial Heroku buildpack for
-[Grafana Cloud Agent](https://github.com/grafana/agent) deployments.
+This is an unofficial Heroku buildpack for deploying
+**Grafana Alloy** on Heroku.
 
-## Usage
+The buildpack installs the Alloy binary during the build phase and
+makes it available at runtime inside the dyno.
 
-### Binary
-It downloads the binary that will placed in `bin/grafana-agent`
+## 📦 Usage
 
-TODO: Cache the download part with the help CACHE_DIR
+Add this buildpack to your Heroku app:
 
-### Config
-Your config file should be placed into the root as `config/grafana-agent-template.yml`.
+```bash
+heroku buildpacks:add https://github.com/ZeroDeposit/grafana-agent
+```
 
-The buildpack will substitute any environment variables. Example:
+Ensure the code of the app includes a config file in:
 
-```yaml
----
-integrations:
-  prometheus_remote_write:
-    - basic_auth:
-        password: ${GRAFANA_CLOUD_API_KEY}
-        username: ${GRAFANA_CLOUD_USERNAME}
-      url: https://prometheus-prod-10-prod-us-central-0.grafana.net/api/prom/push
+```bash
+config/config.alloy
+```
 
-prometheus:
-  configs:
-    - name: integrations
-      remote_write:
-        - basic_auth:
-            password: ${GRAFANA_CLOUD_API_KEY}
-            username: ${GRAFANA_CLOUD_USERNAME}
-          url: https://prometheus-prod-10-prod-us-central-0.grafana.net/api/prom/push
-      scrape_configs:
-        - job_name: integrations/nodejs
-          honor_labels: true
-          metrics_path: /api/v1/services/metrics
-          static_configs:
-            - targets:
-                - ${APP_DOMAIN}
-  global:
-    scrape_interval: 60s
-  wal_directory: /tmp/grafana-agent-wal
+## ▶️ Running Alloy on Heroku
 
+Add a `Procfile` to your application:
+
+```bash
+web: bash bin/start.sh
+```
+
+And a `bin/start.sh` script with:
+
+```bash
+gunicorn app:app &
+bin/alloy run config/config.alloy &
+wait -n
 ```
