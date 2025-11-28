@@ -19,10 +19,10 @@ export_env_dir() {
 
 echo "Download grafana agent binary..."
 mkdir -p $BUILD_DIR/bin
-curl -O -L --silent "https://github.com/grafana/agent/releases/download/v0.30.1/agent-linux-amd64.zip"
-unzip agent-linux-amd64.zip 
-mv agent-linux-amd64 $BUILD_DIR/bin/grafana-agent
-rm agent-linux-amd64.zip
+curl -O -L --silent "https://github.com/grafana/agent/releases/download/v0.38.1/grafana-agent-linux-amd64.zip"
+unzip grafana-agent-linux-amd64.zip 
+mv grafana-agent-linux-amd64 $BUILD_DIR/bin/grafana-agent
+rm grafana-agent-linux-amd64.zip
 
 echo "Grafana agent binary installed."
 
